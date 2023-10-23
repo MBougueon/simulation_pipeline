@@ -1,0 +1,75 @@
+## Objectif
+
+Le but de ce pipeline est le lancement de multiples simulations du l’outil de simulation stochastique utilisant le language Kappa : KaSim.
+Il permet aussi la génération de figure a partir des stimulations obtenues précédemment.
+
+## Composition
+
+3 fichier pythons:
+
+- launch.py
+- graph_kasim.py
+- utils.py
+
+## Dépendances
+
+- Python 3.8
+- [Kappa](https://tools.kappalanguage.org/nightly-builds/)
+
+## Utilisation
+
+Completer le fichier NOM.ini en respectant les consignes présente dans celui-ci. Un exemple de la syntaxe est décris pour chacun des paramètres.
+
+Lancer le pipeline avec la commande 
+
+```bash
+python launch.py
+```
+
+Si vous souhaiter modifier la valeur d’un paramètre de votre modèle en Kappa il est important de préciser que ce pipeline ne renseignera pour chaque variable qu’une valeur numérique.
+
+************exemple: dT = 96 * ‘h’ dans le script Kappa, si je veux changer la valeur de dT par 48 ce pipeline ne renverra alors que dT = 48 et perdra la notion de temps.************
+
+Pour cela, créez un fichier pour votre modèle Kappa contenant les variables sous forme d’entier ou de réel seulement et n’impliquant par d’autre variable et dans un autre fichier la ‘vrai’ variable utilisant cette variable de stockage.
+
+**exemple: dT_modifiable = 96 dans un fichier 1 variable_modif.ka
+et dT = dT_modifiable * ‘h’ dans un fichier 2 variable.ka**
+
+En fonction du type de visualisation souhaité, vous pouvez choisir différentes sortie graphique.
+
+## Paramètres modifiables dans le fichier ini
+
+### Paramètre simulation
+
+- **KaSim**: chemin absolu vers l’exécutable KaSim
+- **time**: Temps maximal de simulation
+- **input**: chemin absolu vers les fichiers kappa
+- **output**: chemin absolu où seront stocker les fichiers bruts de simulation
+- **log**: chemin absolu ou stocker les fichier log de chaque simulation
+- **nb_jobs**: nombre de CPU utiliser pour paralléliser les simulations
+
+### Paramètres variables
+
+- **variables**: liste des variables qui seront modifiées (avec nom des variables séparés par “,”, sans espace), peut être vide
+    - Pour chaque variable inclue dans la liste, préciser sa ou ses valeurs (séparées par “,”, sans espace) comme décrit ci-dessous:
+    - *********************************exemple: 
+        variables : nb_iterations,interval
+        nb_interations: 6,8,9
+        interval: 84*********************************
+
+- **default_name_output:** nom par default du/des fichiers de sorties si aucunes variables n’est modifiées.
+
+### Paramètres graph
+
+- **input_graph**: chemin absolu où sont stocker les fichiers bruts de simulation
+- **output_graph**: chemin absolu où seront stocker les graphs
+- **graph_format**: type de format pour les graphs, html, png, pdf jpeg, (defaut = png)
+- **graph**: type de graph souhaité: moyenne, surface, 4D
+- **surface_plot_variable_analysed**: nom de la variable étudié pour le surface plot, ATTENTION, celle-ci doit être dans le fichier de sortie, pensez a la plot dans votre modèle !
+- **timing**: temps qui peuvent être extrait des données bruts, utilisé pour le graphs de surface et 4D
+- **first_input_time**: 4
+- **repetition**: nombre de fois où chaque simulation est lancées
+
+## Warning
+
+Faire attention au nombre de jobs max, par défauts la valeurs est fixer a 4, au delà de 6 jobs simultané, il est conseiller d’avoir plus de 16Go de RAM.
