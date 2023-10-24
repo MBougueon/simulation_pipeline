@@ -1,22 +1,27 @@
-# Goal
+[![License](http://img.shields.io/:license-affero-blue.svg)](http://www.gnu.org/licenses/agpl-3.0.en.html) 
+
+# Ka (nom a trouver)
+
+
+## Goal
 
 The aim of this pipeline is to launch multiple simulations of the stochastic simulation tool using the Kappa language: KaSim.
 It also generates figures from the stimuli obtained previously.
 
-# Composition
+## Composition
 
-3 files pythons:
+3 python files:
 
 - launch.py
 - graph_kasim.py
 - utils.py
 
-# Dependencies
+## Dependencies
 
 - Python 3.8
 - [Kappa](https://tools.kappalanguage.org/nightly-builds/)
 
-# Use
+## Use
 
 Complete the graph_KaSim.ini file according to the instructions in the file. An example of the syntax is described for each parameter.
 Launch the pipeline with the command 
@@ -24,7 +29,7 @@ Launch the pipeline with the command
 ```bash
 python launch.py
 ```
-## Simulation Parameter
+### Simulation Parameter
 
 - **KaSim**: absolute path toward KaSim exe
 - **time**: Maximal time of simulation
@@ -42,7 +47,7 @@ python launch.py
 
 - **default_name_output:** default name of output file(s) if no variables are modified.
 
-## Paramètres graph
+### Graph parameters
 
 - **input_graph**: absolute path where the raw simulation files are stored
 - **output_graph**: absolute path where graphs will be stored
@@ -54,7 +59,7 @@ python launch.py
 - **repetition**: number of times each simulation is run
 
 
-# Warning
+## Warning
 
 Be careful with the maximum number of jobs, by default the value is set at 4, above 6 simultaneous jobs, it is advisable to have more than 16GB of RAM.
 
